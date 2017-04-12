@@ -13,13 +13,10 @@
             <input type="text" name="guess" />
             <input type="submit" value="Guess!" />
             
-            <%if @guesses == 0 %>
-            <p>Game over, you lose!</p>
-            <p><strong>The secret word was <%= @secret_word %></strong></p>
-            <% else %>
+            
+            <p><%= message %></p>
             <p>You have <%= @guesses %> guesses left!</p>
             <p><strong><%= @announce %></strong></p>
-            <% end %>
             <h3><%= @correct_guesses %>  correct guesses</h3>
             <p><%= @incorrect_guesses %> incorrect guesses </p>
             
