@@ -3,16 +3,29 @@
 </head>
     <body>
         <h1>Hangman</h1>
-        <h3><%= @message %></h3>
-        <p><%= @announce %></p>
+
+            <h3>Welcome to Hangman!</h3>
+            
         <form>
-            <input type="text" name="play" />
-            <input type="submit" name="submit" />
-        </form>
-        <form>
+            
+            <h4><%= @message %></h4>
+            
             <input type="text" name="guess" />
-            <input type="submit" name="guess!" />
+            <input type="submit" value="Guess!" />
+            
+            <%if @guesses == 0 %>
+            <p>Game over, you lose!</p>
+            <p><strong>The secret word was <%= @secret_word %></strong></p>
+            <% else %>
+            <p>You have <%= @guesses %> guesses left!</p>
+            <p><strong><%= @announce %></strong></p>
+            <% end %>
+            <h3><%= @correct_guesses %>  correct guesses</h3>
+            <p><%= @incorrect_guesses %> incorrect guesses </p>
+            
+            <p><%= @display %></p>
         </form>
     
     </body>
 </html>
+

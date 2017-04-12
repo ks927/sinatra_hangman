@@ -1,8 +1,10 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require 'rack'
+
 
 class Game
-    
+    attr_accessor :guesses, :correct_guesses, :incorrect_guesses, :game_over
     def initialize 
         @game_over = false
         @guesses = 10
@@ -22,58 +24,40 @@ class Game
         @letters = @secret_word.split('') # separate letters
         @blanks = Array.new(@secret_word.length, '_') # create blanks to fill in
     end
-    # check for existence and load game with play method
-    def load_game
-        @announce = "What is the name of your game?"
-        name = params['guess']
-        if File.exist?("saved/#{name}")
-            loaded_game = Marshal.load(File.open("saved/#{name}", 'r'))
-            loaded_game.play
-        else
-            @announce = "No game with that name found"
-            return
-        end
-            
-    end
-    # save game to saved directory
-    def save_game
-        @announce = "Enter name for your game: "
-        name = params['guess']
-        File.open("saved/#{name}", 'w').puts Marshal.dump(self)
-        @announce = "Game saved!"
-        Process.exit
-    end
-    # prompt user for guesses and check for matches
-    def check_guess
-        @message = "Guess a letter or type 'save' to save game "
-            @guess = params['guess'].downcase #changed gets.chomp
-            if @letters.include?@guess
-                @announce = "You got one!"
-                @letters.each_with_index do |letter, index|
-                    @blanks[index] = letter if letter == @guess
-                end
-            elsif @guess == "save"
-                save_game
-            else
-                @announce = "Nice try but guess again!"
-                @incorrect_guesses << @guess
-                @guesses = @guesses -= 1
-            end
-    end
+    
     # show the updated blanks after each turn
     def display
        @blanks.each { |letter| print "#{letter} " } 
     end
-    # the game loop with all the methods
-    def play
-        until @game_over == true
-                check_guess
-                display
+    
+    # prompt user for guesses and check for matches
+    def check_guess(guess)
+        @message = "Guess a letter!"
+            # @guess.downcase #changed gets.chomp
+            if @letters.include?@guess
+                @letters.each_with_index do |letter, index|
+                    @blanks[index] = letter if letter == @guess
+                    check_end_game
+                    @announce = "You got one!"
+                end
+            else
+                @incorrect_guesses << @guess
+                @guesses = @guesses -= 1
                 check_end_game
-                @board = "#{@correct_guesses}"
-                @loser_board = "#{@incorrect_guesses} You have #{@guesses} guesses left!"
-        end    
+                @announce = "Nice try but guess again!"
+            end
     end
+    
+    # the game loop with all the methods
+
+#    def play
+#        until @game_over == true
+#                check_guess(@guess)
+#                display
+#                check_end_game
+#        end    
+#    end
+    
     # if guesses run out or blanks get filled in, game_over is set to true, ending the game
     def check_end_game
         if @guesses == 0
@@ -90,18 +74,39 @@ end
 
 # Prompt user to play and start game based on response
 
+hangman = Game.new
+
 
 get '/' do
-    play = params['play'] || ""
-    @message = "Would you like to play Hangman? [Y]es [N]o [L]oad saved game"
+    @guess = params['guess'].to_s || ""
+    @message = hangman.check_guess(@guess)
+    
+    
+    @guesses = hangman.guesses
+    @correct_guesses = hangman.correct_guesses
+    @incorrect_guesses = hangman.incorrect_guesses
+    @display = hangman.display
+    
+    if @guesses == 0
+        hangman = Game.new
+    end
+            
+    erb :index, :locals => { :message => @message, :announce => @announce, :display => @display, :guesses => @guesses, :correct_guesses => @correct_guesses, :incorrect_guesses => @incorrect_guesses, :secret_word => @secret_word }
+end
+
+#case play.upcase
+     #   when "Y" then @message = hangman.play
+      #  when "N" then @message = "Fine then, maybe another time"
+       # end
+
+=begin
+@start = "Would you like to play Hangman? [Y]es [N]o [L]oad saved game"
     case play.upcase
         when "Y" then Game.new.play
-        when "L" then Game.new.load_game
+        when "L" then Game.load_game
         when "N" then @announce = "Fine then, maybe another time"
         end
-    guess = params["guess"]
-    erb :index, :locals => { :secret_word => @secret_word, :guess => @guesses, :message => @message, :announce => @announce, :board => @board, :loser_board => @loser_board, :correct_guesses => @correct_guesses, :incorrect_guesses => @incorrect_guesses }
-end
+=end
 
 
 =begin
