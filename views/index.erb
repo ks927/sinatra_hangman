@@ -1,28 +1,28 @@
 <html>
 <head>
+        <link rel="stylesheet" href="styles.css" />
 </head>
     <body>
-        <h1>Hangman</h1>
+        <div class="game">
+        <h1>Welcome to Hangman</h1>
 
-            <h3>Welcome to Hangman!</h3>
+            <h3>Guess a Letter!</h3>
             
         <form>
-            
-            <h4><%= @message %></h4>
             
             <input type="text" name="guess" />
             <input type="submit" value="Guess!" />
             
+            <h4><%= @message %></h4>
             
-            <p><%= message %></p>
-            <p>You have <%= @guesses %> guesses left!</p>
-            <p><strong><%= @announce %></strong></p>
-            <h3><%= @correct_guesses %>  correct guesses</h3>
-            <p><%= @incorrect_guesses %> incorrect guesses </p>
+            <p id="guess">You have <%= @guesses %> guesses left!</p>
+            <p id="correct"><%= @correct_guesses %>  correct guesses</p>
+            <p id="incorrect"><%= @incorrect_guesses %> incorrect guesses </p>
             
-            <p><%= @display %></p>
+            <p id="display"><%= @display %></p>
         </form>
-    
+        </div>
     </body>
 </html>
+
 

@@ -4,7 +4,6 @@ require 'sinatra/reloader'
 class Game
     attr_accessor :guesses, :correct_guesses, :incorrect_guesses, :secret_word
     def initialize 
-        @game_over = false
         @guesses = 10
         @guess = ''
         @correct_guesses = []
@@ -46,11 +45,9 @@ class Game
     # if guesses run out or blanks get filled in, game_over is set to true, ending the game
     def send_message
         if @guesses == 0
-            @message = "Game over, you lose!"
-            @announce = "The secret word was #{@secret_word}!"
-        elsif @blanks.none? { |letter| letter == '_' }  
-                @message = "You win!"
-                @announce = "The secret word is #{@secret_word}"
+            @message = "Game over, you lose! The secret word was #{@secret_word}! Another word was generated.."
+        elsif @blanks.none? { |letter| letter == '_' } 
+                @message = "You win! The secret word is #{@secret_word.upcase}! Another word was generated.."
         end 
     end
 end
@@ -62,17 +59,16 @@ hangman = Game.new
 get '/' do
     guess = params['guess'].to_s
     @message = hangman.check_guess(guess)
-    
-    
+     
     @guesses = hangman.guesses
     @correct_guesses = hangman.correct_guesses
     @incorrect_guesses = hangman.incorrect_guesses
     @display = hangman.display
     
-    if @guesses == 0
+    if @guesses == 0 || !@display.include?('_')
         hangman = Game.new
     end
             
-    erb :index, :locals => { :message => @message, :announce => @announce, :display => @display, :guesses => @guesses, :correct_guesses => @correct_guesses, :incorrect_guesses => @incorrect_guesses, :secret_word => @secret_word }
+    erb :index, :locals => { :message => @message, :announce => @announce, :display => @display, :guesses => @guesses, :correct_guesses => @correct_guesses, :incorrect_guesses => @incorrect_guesses }
 end
 

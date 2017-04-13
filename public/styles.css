@@ -1,0 +1,17 @@
+body {
+    font-family: Georgia;
+}
+
+.game {
+    margin-left: 75px;
+    margin-top: 75px;
+}
+
+p {
+    padding-top: 20px;
+}
+
+#display {
+    font-size: 1.5em;
+    text-align: center;
+}
