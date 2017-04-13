@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader' if development?
 
 class Game
     attr_accessor :guesses, :correct_guesses, :incorrect_guesses, :secret_word
