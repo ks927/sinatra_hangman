@@ -30,7 +30,11 @@ class Game
     
     # prompt user for guesses and check for matches
     def check_guess(guess)
-            if @letters.include?guess
+        if @correct_guesses.include?(guess) || @incorrect_guesses.include?(guess)
+                @message = "You tried that already!"
+            elsif !('a'..'z').cover?(guess)
+                @message = "Guess must be a letter!"
+            elsif @letters.include?guess
                 @letters.each_with_index do |letter, index|
                     @blanks[index] = letter if letter == guess
                 end
