@@ -1,11 +1,11 @@
 body {
-    font-family: sans-serif;
+    font-family: serif;
     background-image: url("images/wildwest.jpeg");
     font-size: 14px;
 }
 
 .game {
-    margin-left: 75px;
+    margin-left: 10px;
     margin-top: 75px;
 }
 
@@ -14,6 +14,8 @@ p {
 }
 
 .form {
+    margin-left: 100px;
+    margin-top: 75px;
     padding: 15px;
     float: left;
     color: #fff;
@@ -21,6 +23,7 @@ p {
     border: 1px solid brown;
     opacity: .90;
     border-radius: 5px;
+    max-width: 300px;
 }
 
 .display {
@@ -28,14 +31,17 @@ p {
     margin-right: 200px;
     float: right;
     color: indianred;
+    max-width: 500px;
+    /*
     background: sandybrown;
     border: 1px solid brown;
     opacity: .90;
     padding: 10px;
     border-radius: 5px;
+    */
 }
 
 #display {
-    font-size: 1.5em;
+    font-size: 20px;
     text-align: center;
 }

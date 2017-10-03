@@ -10,6 +10,7 @@ class Game
         @incorrect_guesses = []
         generate_word
     end
+    
     # load dictionary and generate random word between 5 and 12 characters
     def generate_word
         good_words = []
@@ -32,26 +33,29 @@ class Game
     def check_guess(guess)
         if @correct_guesses.include?(guess) || @incorrect_guesses.include?(guess)
                 @message = "You tried that already!"
-            elsif !('a'..'z').cover?(guess)
-                @message = "Guess must be a letter!"
-            elsif @letters.include?guess
-                @letters.each_with_index do |letter, index|
-                    @blanks[index] = letter if letter == guess
-                end
-                @correct_guesses << guess
-            else
-                @incorrect_guesses << guess
-                @guesses = @guesses -= 1
+        elsif !('a'..'z').cover?(guess)
+                @message = "You tried that already!"
+        elsif @letters.include?guess
+            @letters.each_with_index do |letter, index|
+                @blanks[index] = letter if letter == guess
             end
-        send_message
+            @correct_guesses << guess
+            @message = "You got one!"
+        else
+            @incorrect_guesses << guess
+            @guesses = @guesses -= 1
+        end
+        check_end
     end
     
     # if guesses run out or blanks get filled in, game_over is set to true, ending the game
-    def send_message
+    def check_end
         if @guesses == 0
             @message = "Game over, you lose! The secret word was #{@secret_word}! Another word was generated.."
         elsif @blanks.none? { |letter| letter == '_' } 
-                @message = "You win! The secret word is #{@secret_word.upcase}! Another word was generated.."
+            @message = "You win! The secret word is #{@secret_word.upcase}! Another word was generated.."
+        else
+            @message = "Letters from a-z"
         end 
     end
 end
