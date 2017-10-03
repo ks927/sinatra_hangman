@@ -1,5 +1,6 @@
 body {
-    font-family: Georgia;
+    font-family: sans-serif;
+    background-image: url("images/wildwest.jpeg");
 }
 
 .game {
@@ -9,6 +10,18 @@ body {
 
 p {
     padding-top: 20px;
+}
+
+.form {
+    float: left;
+    color: #fff;
+}
+
+.display {
+    margin-top: 200px;
+    margin-right: 200px;
+    float: right;
+    color: indianred;
 }
 
 #display {
