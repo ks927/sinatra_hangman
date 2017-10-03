@@ -1,6 +1,7 @@
 body {
     font-family: sans-serif;
     background-image: url("images/wildwest.jpeg");
+    font-size: 14px;
 }
 
 .game {
@@ -13,8 +14,13 @@ p {
 }
 
 .form {
+    padding: 15px;
     float: left;
     color: #fff;
+    background: sandybrown;
+    border: 1px solid brown;
+    opacity: .90;
+    border-radius: 5px;
 }
 
 .display {
@@ -22,6 +28,11 @@ p {
     margin-right: 200px;
     float: right;
     color: indianred;
+    background: sandybrown;
+    border: 1px solid brown;
+    opacity: .90;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 #display {
