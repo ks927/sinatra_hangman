@@ -4,7 +4,7 @@ A web version of the classic Hangman guessing game. A secret word is generated u
 
 # Installation
 
-To play online go here [link](https://glacial-retreat-36955.herokuapp.com/?guess=p)
+To play online go here [Heroku](https://glacial-retreat-36955.herokuapp.com/?guess=p)
 
 To run the game locally, first clone the repository in your command line, then enter the following: 
 
@@ -23,4 +23,4 @@ If the word is completely filled out or the turns get down to 0, a game over mes
 
 ### Acknowledgments
 
-[link](https://www.theodinproject.com/courses/ruby-on-rails/lessons/sinatra-project)
+[The Odin Project](https://www.theodinproject.com/courses/ruby-on-rails/lessons/sinatra-project)
