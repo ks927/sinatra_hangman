@@ -51,9 +51,9 @@ class Game
     # if guesses run out or blanks get filled in, game_over is set to true, ending the game
     def check_end
         if @guesses == 0
-            @message = "Game over, you lose! The secret word was #{@secret_word}! Another word was generated.."
+            @message = "Game over, you lose! The secret word was #{@secret_word}! Another word was generated..\n Press guess to see it."
         elsif @blanks.none? { |letter| letter == '_' } 
-            @message = "You win! The secret word is #{@secret_word.upcase}! Another word was generated.."
+            @message = "You win! The secret word is #{@secret_word.upcase}! Another word was generated..\n Press guess to see it."
         else
             @message = "Letters from a-z"
         end 
